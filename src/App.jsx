@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
-import Home from "./pages/Home";
-import Shop from "./pages/Shop";
-import Cart from "./pages/Cart";
-import ProductDetails from "./pages/ProductDetails";
 import Header from "./components/shared/Header";
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Shop from "./pages/Shop";
+import ProductDetails from "./pages/ProductDetails";
 import Footer from "./components/shared/Footer";
+import Cart from "./pages/Cart";
 
 const App = () => {
   return (
