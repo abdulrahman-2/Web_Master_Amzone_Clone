@@ -1,16 +1,17 @@
-// import { useEffect } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { fetchProducts } from "../features/product/productSlice";
+
+
+import HeroSlider from "../components/HeroSlider";
+import ProductCategories from "../components/ProductCategories";
 
 const Home = () => {
-  // const { products, loading, error } = useSelector((state) => state.products);
-  // const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchProducts());
-  // }, [dispatch]);
 
-  return <div>Home</div>;
+  return (
+    <div>
+    <HeroSlider/>
+    <ProductCategories/>
+  </div>
+  )
 };
 
 export default Home;
