@@ -4,7 +4,7 @@ import { getProducts } from "./productApi";
 const initialState = {
   products: [],
   loading: false,
-  error: false,
+  error: "",
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -23,15 +23,15 @@ export const productSlice = createSlice({
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
-        state.error = false;
+        state.error = "";
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload.products;
+        state.products = action.payload;
       })
-      .addCase(fetchProducts.rejected, (state) => {
+      .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = true;
+        state.error = action.error.message;
       });
   },
 });

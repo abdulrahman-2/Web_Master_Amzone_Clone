@@ -2,7 +2,7 @@ import { useState } from "react";
 import FormGenerator from "../components/layout/form/FormGenerator";
 import FormLayout from "../components/layout/form/FormLayout";
 import { useNavigate } from "react-router-dom";
-import { authInstance } from "../lib/axios";
+import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { fetchUser } from "../features/user/userSlice";
 import { useDispatch } from "react-redux";
@@ -31,7 +31,7 @@ const SignIn = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await authInstance.post("/login", formData);
+      const res = await axiosInstance.post("/auth/login", formData);
       const { success, message } = res.data;
       if (success) {
         toast.success(message);

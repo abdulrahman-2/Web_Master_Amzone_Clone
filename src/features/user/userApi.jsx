@@ -1,13 +1,13 @@
-import { authInstance } from "../../lib/axios";
+import { axiosInstance } from "../../lib/axios";
 
 export const getUser = async () => {
-  const res = await authInstance.get("/me");
+  const res = await axiosInstance.get("/auth/me");
   const data = await res.data;
   return data;
 };
 
 export const logout = async () => {
-  const res = await authInstance.post("/logout");
+  const res = await axiosInstance.post("/auth/logout");
   const data = await res.data;
   return data;
 };

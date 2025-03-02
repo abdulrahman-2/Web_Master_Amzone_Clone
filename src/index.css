@@ -2,15 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background: #575757;
-}
-.swiper-button-prev, .swiper-button-next {
-    color:aliceblue !important;
+.swiper-button-prev,
+.swiper-button-next {
+  color: aliceblue !important;
 }
 
-@media (max-width:767px) {
-    .swiper-button-prev::after, .swiper-button-next::after {
-        font-size: 30px !important;
-    }
+@media (max-width: 767px) {
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 30px !important;
+  }
 }

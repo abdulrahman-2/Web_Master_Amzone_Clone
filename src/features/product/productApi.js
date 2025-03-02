@@ -7,6 +7,6 @@ export const getProducts = async (category) => {
       : `https://dummyjson.com/products?limit=0`
   );
 
-  const data = await res.data;
+  const data = await res.data.products;
   return data;
 };

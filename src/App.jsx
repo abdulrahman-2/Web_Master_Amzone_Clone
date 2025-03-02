@@ -12,6 +12,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import ProtectedRoutes from "./lib/utils/ProtectedRoutes";
 import PublicRoutes from "./lib/utils/PublicRoutes";
+import Categories from "./pages/Categories";
 
 const App = () => {
   const location = useLocation();
@@ -28,7 +29,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/category/:category" element={<Categories />} />
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/checkout" element={<Checkout />} />

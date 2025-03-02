@@ -4,7 +4,7 @@ import { getCategories } from "./categoryApi";
 const initialState = {
   categories: [],
   loading: false,
-  error: false,
+  error: "",
 };
 
 export const fetchCategories = createAsyncThunk(
@@ -23,15 +23,15 @@ export const categorySlice = createSlice({
     builder
       .addCase(fetchCategories.pending, (state) => {
         state.loading = true;
-        state.error = false;
+        state.error = "";
       })
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.loading = false;
         state.categories = action.payload;
       })
-      .addCase(fetchCategories.rejected, (state) => {
+      .addCase(fetchCategories.rejected, (state, action) => {
         state.loading = false;
-        state.error = true;
+        state.error = action.error.message;
       });
   },
 });

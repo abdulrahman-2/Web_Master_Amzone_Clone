@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const authInstance = axios.create({
-  baseURL: "https://backend-starter-production.up.railway.app/api/auth",
+export const axiosInstance = axios.create({
+  baseURL: "https://new-mart-ecommerce-backend.vercel.app/api",
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });

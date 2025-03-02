@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FormGenerator from "../components/layout/form/FormGenerator";
 import FormLayout from "../components/layout/form/FormLayout";
-import { authInstance } from "../lib/axios";
+import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ const SignUp = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await authInstance.post("/signup", formData);
+      const res = await axiosInstance.post("/auth/signup", formData);
       const { success, message } = res.data;
       if (success) {
         toast.success(message);
