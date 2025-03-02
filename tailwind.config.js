@@ -2,13 +2,14 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {
-      colors: {
-        primary: "#FFD814",
-        secondary: "#2A8FD7",
-        bgLight: "#232F3E",
-      },
+    screens:{
+      xsm:"300px",
+       sm: '640px',
+       md: '768px',
+       lg: '1024px',
+       xl: '1280px'
     },
+    extend: {},
   },
   plugins: [],
 };

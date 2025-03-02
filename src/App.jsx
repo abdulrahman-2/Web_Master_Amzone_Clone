@@ -23,8 +23,9 @@ const App = () => {
   );
 
   return (
-    <>
-      {!hideHeaderFooter && <Header />}
+    <div>
+      <Header />
+      <Shop/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
