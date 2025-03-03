@@ -30,9 +30,10 @@ const Cart = () => {
     }
   };
 
-  const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+  const totalPrice = cart.reduce(
+    (acc, item) => acc + item.price * (item.quantity || 1),
+    0
+  );
 
   return (
     <div className="bg-gray-100">
@@ -142,7 +143,7 @@ const Cart = () => {
                   Subtotal ({cart.length} items):{" "}
                   <span className="font-bold">
                     <sup>EGP</sup>
-                    {calculateTotal(cart)}
+                    {totalPrice}
                   </span>
                 </p>
                 <button

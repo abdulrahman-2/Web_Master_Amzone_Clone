@@ -17,7 +17,12 @@ export const fetchUser = createAsyncThunk("user/getUser", async () => {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.user = null;
+      localStorage.removeItem("user");
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUser.pending, (state) => {
@@ -37,3 +42,5 @@ export const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+
+export const { logout } = userSlice.actions;

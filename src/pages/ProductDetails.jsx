@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   LuStar,
   LuShoppingCart,
@@ -8,20 +7,54 @@ import {
   LuShield,
   LuCircleAlert,
 } from "react-icons/lu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import ProductImages from "../components/shared/productsImages";
+import {
+  addToCart,
+  decreaseQuantity,
+  increaseQuantity,
+} from "../features/cart/cartSlice";
+import toast from "react-hot-toast";
+import { addToFav, removeFromFav } from "../features/fav/favSlice";
 
 export default function ProductDetails() {
-  const [quantity, setQuantity] = useState(1);
-
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const { products } = useSelector((state) => state.products);
+  const { cart } = useSelector((state) => state.cart);
+  const { fav } = useSelector((state) => state.fav);
 
-  const product = products.find((product) => product.id === id);
+  const isProductInFav = fav.some((item) => Number(item.id) === Number(id));
+  const ProductInCart = cart.find((item) => Number(item.id) === Number(id));
+
+  const product = products.find((product) => Number(product.id) === Number(id));
 
   const discountedPrice =
     product.price - product.price * (product.discountPercentage / 100);
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+    toast.success(`${product.title.substring(0, 12)}... added to cart`);
+  };
+
+  const handleHeartClick = (product) => {
+    isProductInFav
+      ? dispatch(removeFromFav(product))
+      : dispatch(addToFav(product));
+    toast.success(`${product.title.substring(0, 12)}... added to favorites`);
+  };
+
+  const handleIncrement = (product) => {
+    dispatch(increaseQuantity(product));
+    toast.success(`${product.title.substring(0, 12)}... increased quantity`);
+  };
+
+  const handleDecrement = (product) => {
+    dispatch(decreaseQuantity(product));
+    toast.success(`${product.title.substring(0, 12)}... decreased quantity`);
+  };
 
   const renderStars = (rating) => {
     const stars = [];
@@ -50,49 +83,12 @@ export default function ProductDetails() {
     return stars;
   };
 
-  const incrementQuantity = () => {
-    if (quantity < product.stock) {
-      setQuantity(quantity + 1);
-    }
-  };
-
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
   return (
     <div className="bg-white">
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
           {/* Image gallery */}
-          <div className="flex flex-col items-center">
-            <div className="overflow-hidden rounded-lg max-w-md">
-              <img
-                src={
-                  product.images[0] || "/placeholder.svg?height=600&width=600"
-                }
-                alt={product.title}
-                width={600}
-                height={600}
-                className="w-full h-full object-center object-cover"
-              />
-            </div>
-            <div className="mt-4 flex space-x-2">
-              <div className="border-2 border-primary rounded-md p-1">
-                <img
-                  src={
-                    product.thumbnail || "/placeholder.svg?height=80&width=80"
-                  }
-                  alt={`${product.title} thumbnail`}
-                  width={80}
-                  height={80}
-                  className="w-20 h-20 object-cover"
-                />
-              </div>
-            </div>
-          </div>
+          <ProductImages product={product} />
 
           {/* Product info */}
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
@@ -100,8 +96,13 @@ export default function ProductDetails() {
               <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
                 {product.title}
               </h1>
-              <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
-                <LuHeart className="h-6 w-6 text-gray-500" />
+              <button
+                onClick={() => handleHeartClick(product)}
+                className={`p-2 rounded-full hover:bg-gray-200 ${
+                  isProductInFav ? "bg-red-500" : "bg-gray-100"
+                }`}
+              >
+                <LuHeart className="h-6 w-6" />
               </button>
             </div>
 
@@ -175,17 +176,15 @@ export default function ProductDetails() {
                 </span>
                 <div className="flex items-center border border-gray-300 rounded">
                   <button
-                    onClick={decrementQuantity}
+                    onClick={handleDecrement}
                     className="px-3 py-1 text-gray-600 hover:bg-gray-100"
-                    disabled={quantity <= 1}
                   >
                     -
                   </button>
-                  <span className="px-4 py-1 text-gray-700">{quantity}</span>
+                  <span className="px-4 py-1 text-gray-700">{1}</span>
                   <button
-                    onClick={incrementQuantity}
+                    onClick={handleIncrement}
                     className="px-3 py-1 text-gray-600 hover:bg-gray-100"
-                    disabled={quantity >= product.stock}
                   >
                     +
                   </button>
@@ -199,11 +198,12 @@ export default function ProductDetails() {
             {/* Add to cart */}
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <button
+                onClick={() => handleAddToCart(product)}
                 type="button"
                 className="w-full bg-primary text-black border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-semibold hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
               >
                 <LuShoppingCart className="mr-2 h-5 w-5" />
-                Add to Cart
+                {ProductInCart ? "Added to cart" : "Add to cart"}
               </button>
               <button
                 type="button"
