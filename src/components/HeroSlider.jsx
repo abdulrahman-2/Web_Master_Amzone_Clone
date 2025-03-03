@@ -16,12 +16,12 @@ const HeroSlider = () => {
         navigation
       >
         {[
-          "images/slide1.jpeg",
-          "images/slide2.jpeg",
-          "images/slide3.jpeg",
-          "images/slide4.jpeg",
-          "images/slide5.jpeg",
-          "images/slide6.jpeg",
+          "images/banner/bannerImgOne.jpg",
+          "images/banner/bannerImgTwo.jpg",
+          "images/banner/bannerImgThree.jpg",
+          "images/banner/bannerImgFour.jpg",
+          "images/banner/bannerImgFive.jpg",
+          "images/banner/slide4.jpeg",
         ].map((src) => (
           <SwiperSlide key={src}>
             <div

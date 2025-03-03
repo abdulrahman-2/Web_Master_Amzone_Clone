@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="bg-black/60">
       <HeroSlider />
-      <div className="relative z-50 -top-[150px] md:-top-[350px]">
+      <div className="relative z-40 -top-[150px] md:-top-[350px]">
         <ProductCategories />
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Header from "./components/shared/Header";
 import Footer from "./components/shared/Footer";
 import Notifications from "./components/shared/Notifications";
@@ -13,6 +13,12 @@ import Checkout from "./pages/Checkout";
 import ProtectedRoutes from "./lib/utils/ProtectedRoutes";
 import PublicRoutes from "./lib/utils/PublicRoutes";
 import Categories from "./pages/Categories";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "./features/product/productSlice";
+import { fetchCategories } from "./features/category/categorySlice";
+import Success from "./pages/Success";
+import Cancel from "./pages/Cancel";
+import Fav from "./pages/Fav";
 
 const App = () => {
   const location = useLocation();
@@ -22,16 +28,27 @@ const App = () => {
     [location.pathname]
   );
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
   return (
     <div>
       <Header />
-      <Shop/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/fav" element={<Fav />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/category/:category" element={<Categories />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/checkout" element={<Checkout />} />
@@ -44,7 +61,7 @@ const App = () => {
       </Routes>
       {!hideHeaderFooter && <Footer />}
       <Notifications />
-    </>
+    </div>
   );
 };
 

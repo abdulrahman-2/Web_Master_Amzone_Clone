@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../features/category/categorySlice";
 import { fetchProducts } from "../features/product/productSlice";
 import { Link } from "react-router-dom";
 
@@ -16,10 +15,6 @@ const ProductCategories = () => {
     loading: productsLoading,
     error: productsError,
   } = useSelector((state) => state.products);
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
 
   useEffect(() => {
     categories.forEach((category) => {

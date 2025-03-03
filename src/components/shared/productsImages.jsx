@@ -1,0 +1,40 @@
+import { useState } from "react";
+
+const ProductImages = ({ product }) => {
+  const [imgUrl, setImgUrl] = useState(product?.images[0]);
+
+  const handleImgUrl = (image) => {
+    setImgUrl(image);
+  };
+
+  return (
+    <div className="flex flex-col-reverse xl:flex-row items-start gap-2">
+      <div className="flex flex-row xl:flex-col flex-wrap gap-3">
+        {product?.images.map((image, index) => (
+          <img
+            onClick={() => handleImgUrl(image)}
+            key={index}
+            src={image}
+            alt="product image"
+            width={100}
+            height={100}
+            className={`object-contain h-20 w-20 cursor-pointer ${
+              imgUrl === image
+                ? "opacity-100 border border-amazon_orange"
+                : "opacity-75"
+            } bg-[#e3e6e6] p-2 rounded-md`}
+          />
+        ))}
+      </div>
+      <div className="w-full h-[400px] md:h-[500px] lg:h-[640px] relative">
+        <img
+          src={imgUrl}
+          alt="product image"
+          className="w-full h-full object-contain bg-[#e3e6e6] p-10 rounded-md"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default ProductImages;
